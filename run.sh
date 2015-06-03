@@ -6,4 +6,4 @@ function cleanup {
 iptables -t nat -D PREROUTING -p tcp --dport 80 -j REDIRECT --to 3129 -m comment --comment squid-in-a-can
 }
 trap cleanup EXIT
-docker run --net host -v /var/cache/squid3:/var/cache/squid3 squid-in-a-can
+docker run --name squid-in-a-can --net host -v /var/cache/squid3:/var/cache/squid3 squid-in-a-can
