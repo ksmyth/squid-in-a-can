@@ -66,7 +66,7 @@ def main():
     time.sleep(5)
 
     # Start the squid instance
-    os.execlp('squid', '-N')
+    os.execlp('squid3', 'squid3', '-N')
 
 if __name__ == '__main__':
     sys.exit(main())
