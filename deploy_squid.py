@@ -29,8 +29,6 @@ import time
 
 prepare_cache_cmd = "chown -R proxy:proxy /var/cache/squid3"
 build_cmd = "squid3 -z"
-squid_cmd = "squid3 -N"
-
 
 def main():
     if os.geteuid() != 0:
@@ -67,17 +65,8 @@ def main():
     # wait for the above non-blockin call to finish setting up the directories
     time.sleep(5)
 
-    # Start the squid instance as a subprocess
-    squid_in_a_can = subprocess.Popen(squid_cmd, shell=True)
-
-    # While the process is running wait for squid to be running
-    print("Waiting for squid to finish")
-    while squid_in_a_can.poll() is None:
-        time.sleep(1)
-
-    print("Squid process exited with return code %s" %
-          squid_in_a_can.returncode)
-    return squid_in_a_can.returncode
+    # Start the squid instance
+    os.execlp('squid', '-N')
 
 if __name__ == '__main__':
     sys.exit(main())
